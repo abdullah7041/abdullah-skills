@@ -15,26 +15,24 @@ under `skills/` with a `SKILL.md` file. Install any of them with one command.
 Install everything in this repo:
 
 ```bash
-npx skills add YOURUSERNAME/abdullah-skills
+npx skills add abdullah7041/abdullah-skills
 ```
 
 Install a single skill:
 
 ```bash
-npx skills add YOURUSERNAME/abdullah-skills --skill cleanup
+npx skills add abdullah7041/abdullah-skills --skill cleanup
 ```
 
 See what's in the repo before installing:
 
 ```bash
-npx skills add YOURUSERNAME/abdullah-skills --list
+npx skills add abdullah7041/abdullah-skills --list
 ```
 
 Skills install into `.claude/skills/` (or your agent's skills directory). Once
 installed, just describe the task in plain language and the matching skill runs.
 For `cleanup`, say `cleanup`, `free up space`, or `scan` for a report-only pass.
-
-> Replace `YOURUSERNAME` with your GitHub username once this repo is pushed.
 
 ## Using cleanup
 
@@ -46,16 +44,6 @@ For `cleanup`, say `cleanup`, `free up space`, or `scan` for a report-only pass.
 
 It never deletes without showing you sizes first and getting a separate yes for
 each category. Personal files, source code, and secrets are always off-limits.
-
-## Adding a new skill
-
-1. Create `skills/<your-skill-name>/SKILL.md`.
-2. Give it frontmatter with a `name` and a trigger-rich `description` (pack in the
-   exact phrases a user would type — that's what makes the skill fire).
-3. Write the instructions: a role line, hard rules, a phased workflow, exact
-   values instead of vibes, an owned output format, and a checklist.
-4. Add a row to the Skills table above.
-5. Commit and push. It's instantly installable with `npx skills add`.
 
 ## License
 
