@@ -8,7 +8,7 @@ under `skills/` with a `SKILL.md` file. Install any of them with one command.
 
 | Skill | What it does | Platform |
 | --- | --- | --- |
-| **cleanup** | Frees up disk space, safely. Scans temp/system junk, dev caches, stray `node_modules`, Downloads, and browser caches, reports sizes, and deletes only after you confirm — one bucket at a time. | Windows (PowerShell) |
+| **cleanup** | Frees up disk space, safely. Scans temp/system junk, dev caches, stray `node_modules`, Downloads, browser caches, and the big Windows wins (Windows Update store, WSL/Docker vhdx bloat), reports sizes, and removes only after you confirm — one bucket at a time. Deletions are quarantined, not destroyed, so a wrong call is undoable for 7 days. | Windows (PowerShell) |
 
 ## Install
 
@@ -38,14 +38,24 @@ For `cleanup`, say `cleanup`, `free up space`, or `scan` for a report-only pass.
 
 ## Using cleanup
 
-- `cleanup` or `free up space` — full run: scan, confirm per bucket, delete, verify.
-- `scan` / `dry-run` — report only, deletes nothing.
-- `quick` — only the always-safe buckets (temp, Recycle Bin, dev caches).
-- `deep` — all drives, plus duplicates and node_modules everywhere.
+- `cleanup` or `free up space` — full run: scan, confirm per bucket, clean, report.
+- `scan` / `dry-run` — report only, removes nothing.
+- `quick` — only the auto-safe buckets (temp, dev caches, browser cache, Recycle Bin).
+- `deep` — all buckets, plus stale `node_modules` across your profile.
 - `cleanup downloads` — focus on one bucket.
+- `restore` / "undo the cleanup" — put back the last run's quarantined files.
 
-It never deletes without showing you sizes first and getting a separate yes for
-each category. Personal files, source code, and secrets are always off-limits.
+It never removes anything without showing you sizes first and getting a separate
+yes for each bucket. Personal files, source code, and secrets are always
+off-limits — the cleaner re-checks every path against an allowlist and refuses
+anything under Documents, Desktop, OneDrive, or Dropbox. Undoable buckets are
+**moved to quarantine**, not deleted, and restorable for 7 days; permanent
+buckets (Recycle Bin) and admin-only wins (Windows Update store, `Windows.old`)
+are always called out as such before anything runs.
+
+Under the hood the skill ships three PowerShell scripts — `scan.ps1` (read-only),
+`clean.ps1` (the only one that removes anything, via quarantine), and
+`restore.ps1` (undo) — plus `references/buckets.md` documenting every bucket.
 
 ## Adding a new skill
 
